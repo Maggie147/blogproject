@@ -12,4 +12,5 @@ urlpatterns = [
     # path('category/<int:pk>/', views.category, name='category'),
     path('category/<int:pk>/', views.CategoryView.as_view(), name='category'),
     path('tag/<int:pk>/', views.TagView.as_view(), name='tag'),
+    re_path('^search/$', views.search, name='search'),
 ]
