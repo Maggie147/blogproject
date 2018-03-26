@@ -55,8 +55,18 @@
    >>> from blog.models import Category, Tag, Post
    >>> c = Category(name='category test')
    >>> c.save()
+   
    >>> t = Tag(name='tag test')
    >>> t.save()
+   ```
+   
+   objects 是我们的模型管理器, 提供一系列从数据库中取数据方法。all 方法返回全部数据，是一个类似于列表的数据结构（QuerySet）；而 get 返回一条记录数据，如有多条记录或者没有记录，get 方法均会抛出相应异常。
+   ```
+   >>> Category.objects.all()
+   >>> Tag.objects.all()
+   
+   >>> user = User.objects.get(username='xxx')
+   >>> c = Category.objects.get(name='category test')
    ```
 
 5. 创建后台管理员账户
@@ -65,6 +75,11 @@
 
    ```
    python manage.py createsuperuser
+   
+   >>> from blog.models import Category, Tag, Post
+   >>> p = Post(title='title test', body='body test', created_time=timezone.now(), modified_time=timezone.now(), category=c, author=user)
+   >>> p.save()
+   >>> Post.objects.all()
    ```
 
    具体请参阅 [在 Django Admin 后台发布文章](http://zmrenwu.com/post/9/)
