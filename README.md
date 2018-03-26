@@ -51,7 +51,6 @@
    交互式命令行测试数据库函数：
     ```
    python manage.py shell
-   
    >>> from blog.models import Category, Tag, Post
    >>> c = Category(name='category test')
    >>> c.save()
@@ -59,7 +58,6 @@
    >>> t = Tag(name='tag test')
    >>> t.save()
    ```
-   
    objects 是我们的模型管理器, 提供一系列从数据库中取数据方法。all 方法返回全部数据，是一个类似于列表的数据结构（QuerySet）；而 get 返回一条记录数据，如有多条记录或者没有记录，get 方法均会抛出相应异常。
    ```
    >>> Category.objects.all()
@@ -68,7 +66,19 @@
    >>> user = User.objects.get(username='xxx')
    >>> c = Category.objects.get(name='category test')
    ```
-
+   
+   改数据
+   ```
+   >>> c = Category.objects.get(name='category test')
+   >>> c.name = 'category test new'
+   >>> c.save()
+   ```
+   删数据
+   ```
+   >>> p = Post.objects.get(title='title test')
+   >>> p.delete()
+   ```
+   
 5. 创建后台管理员账户
 
    在上一步所在的位置运行如下命令创建后台管理员账户
