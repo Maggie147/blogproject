@@ -52,11 +52,11 @@
     ```
    python manage.py shell
    
->>> from blog.models import Category, Tag, Post
->>> c = Category(name='category test')
->>> c.save()
->>> t = Tag(name='tag test')
->>> t.save()
+   >>> from blog.models import Category, Tag, Post
+   >>> c = Category(name='category test')
+   >>> c.save()
+   >>> t = Tag(name='tag test')
+   >>> t.save()
    ```
 
 5. 创建后台管理员账户
