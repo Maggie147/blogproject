@@ -40,11 +40,23 @@
    ```
 
 4. 迁移数据库
-
+ 
+   使用了 Python 内置的 SQLite3 数据库。SQLite3 是一个十分轻巧的数据库，它仅有一个文件（数据库文件 db.sqlite3）。
    在上一步所在的位置运行如下命令迁移数据库：
 
    ```
+   python manage.py makemigrations
    python manage.py migrate
+   ```
+   交互式命令行测试数据库函数：
+    ```
+   python manage.py shell
+   
+>>> from blog.models import Category, Tag, Post
+>>> c = Category(name='category test')
+>>> c.save()
+>>> t = Tag(name='tag test')
+>>> t.save()
    ```
 
 5. 创建后台管理员账户
