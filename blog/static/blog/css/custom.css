@@ -4,11 +4,11 @@
  * 1.0 - Google Font
  * 2.0 - General Elements
  * 3.0 - Site Header
- *   3.1 - Logo
- *   3.2 - Main Navigation
- *     3.2.1 - Main Nav CSS 3 Hover Effect
+ * 3.1 - Logo
+ * 3.2 - Main Navigation
+ * 3.2.1 - Main Nav CSS 3 Hover Effect
  * 4.0 - Home/Blog
- *   4.1 - Read More Button CSS 3 style
+ * 4.1 - Read More Button CSS 3 style
  * 5.0 - Widget
  * 6.0 - Footer
  * 7.0 - Header Search Bar
@@ -123,7 +123,7 @@ img {
  */
 
 .logo h1 a {
-    color: #000;
+    color: #777;
 }
 
 .logo h1 a:hover {
