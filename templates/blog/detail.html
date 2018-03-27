@@ -1,22 +1,70 @@
 {% extends 'base.html' %}
 
 {% block main %}
-                <article class="post post-{{ post.pk }}">
-                    <header class="entry-header">
-                        <h1 class="entry-title">{{ post.title }}</h1>
-                        <div class="entry-meta">
-                            <span class="post-category">
-                            	<a href="#">{{ post.category.name }}</a></span>
-                            <span class="post-date"><a href="#">
-                            	<time class="entry-date" datetime="#">{{ post.created_time }}</time></a></span>
-                            <span class="post-author"><a href="#">{{ post.author }}</a></span>
-                            <span class="comments-link">
-                            	<a href="#"> 评论</a></span>
-                            <span class="views-count"><a href="{{post.get_absolute_url}}">{{post.views}} 阅读</a></span>
-                        </div>
-                    </header>
-                    <div class="entry-content clearfix">
-                    {{ post.body|safe }}
-                    </div>
-                </article>
+    <article class="post post-{{ post.pk }}">
+        <header class="entry-header">
+            <h1 class="entry-title">{{ post.title }}</h1>
+
+            <div class="entry-meta">
+                <span class="post-category">
+                	<a href="#">{{ post.category.name }}</a></span>
+                <span class="post-date"><a href="#">
+                	<time class="entry-date" datetime="#">{{ post.created_time }}</time></a></span>
+                <span class="post-author"><a href="#">{{ post.author }}</a></span>
+                <span class="comments-link">
+                	<a href="#">{{ post.comment_set.count}} 评论</a></span>
+                <span class="views-count"><a href="{{post.get_absolute_url}}">{{post.views}} 阅读</a></span>
+            </div>
+        </header>
+
+        <div class="entry-content clearfix">
+        {{ post.body|safe }}
+        <!--  Django 出于安全方面的考虑, 任何的 HTML 代码在 Django 的模板中都会被转义。
+        为了解除转义，只需在模板标签使用 safe 过滤器即可。
+
+        safe 是 Django 模板系统中的过滤器（Filter），可以简单地把它看成是一种函数，其作用是作用于模板变量，将模板变量的值变为经过滤器处理过后的值。
+         -->
+        </div>
+    </article>
+
+    <form action="{% url 'comments:post_comment' post.pk %}" method="post" class="comment-form">
+      {% csrf_token %}
+      <div class="row">
+        <div class="col-md-4">
+          <label for="{{ form.name.id_for_label }}">名字：</label>
+          {{ form.name }}
+          {{ form.name.errors }}
+        </div>
+        <div class="col-md-4">
+          <label for="{{ form.email.id_for_label }}">邮箱：</label>
+          {{ form.email }}
+          {{ form.email.errors }}
+        </div>
+        <div class="col-md-4">
+          <label for="{{ form.url.id_for_label }}">URL：</label>
+          {{ form.url }}
+          {{ form.url.errors }}
+        </div>
+        <div class="col-md-12">
+          <label for="{{ form.text.id_for_label }}">评论：</label>
+          {{ form.text }}
+          {{ form.text.errors }}
+          <button type="submit" class="comment-btn">发表</button>
+        </div>
+      </div>    <!-- row -->
+    </form>
+
+    <ul class="comment-list list-unstyled">
+      {% for comment in comment_list %}
+      <li class="comment-item">
+        <span class="nickname">{{ comment.name }}</span>
+        <time class="submit-date">{{ comment.created_time }}</time>
+        <div class="text">
+          {{ comment.text }}
+        </div>
+      </li>
+      {% empty %}
+      暂无评论
+      {% endfor %}
+    </ul>
 {% endblock main %}

@@ -19,10 +19,12 @@ from django.urls import path, include
 
 
 
+
+''' 导入include 函数, 用这个函数把 blog 应用下的 urls.py 文件包含了进来。
+Django 会把path参数字符串和后面 include 的 urls.py 文件中的 URL 拼接。
+'''
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('blog.urls')),
-    # path(r'', views.index, name='index'),
-    # path(r'^post/(?P<pk>[0-9]+)/$', views.detail, name='detail'),
+    path('', include('comments.urls')),
 ]
-

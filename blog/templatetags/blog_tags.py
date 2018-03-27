@@ -1,4 +1,5 @@
 #coding:utf-8
+# 模板标签
 from ..models import Post, Category, Tag
 from django import template
 from django.db.models.aggregates import Count
@@ -6,21 +7,33 @@ from django.db.models.aggregates import Count
 
 register = template.Library()
 
+
+
+
+# 最新文章 模板标签
+'''获取数据库中前 num 篇文章，这里 num 默认为 5。
+'''
 @register.simple_tag
 def get_recent_posts(num=5):
 	return Post.objects.all().order_by('-created_time')[:num]
 
-@register.simple_tag
-def get_tags():
-	return Tag.objects.annotate(num_posts=Count('post')).filter(num_posts__gt=0)
 
-
+# 归档 模板标签
+'''dates 方法会返回一个列表，列表中的元素为每一篇文章（Post）的创建时间,
+且是 Python 的 date 对象，精确到月份，降序排列。
+'''
 @register.simple_tag
 def archives():
 	return Post.objects.dates('created_time', 'month', order='DESC')
 
-# 模板标签
+
+# 分类 模板标签
 @register.simple_tag
 def get_categories():
 	# return Category.objects.all()
 	return Category.objects.annotate(num_posts = Count('post')).filter(num_posts__gt=0)
+
+# 标签云 模板标签
+@register.simple_tag
+def get_tags():
+	return Tag.objects.annotate(num_posts=Count('post')).filter(num_posts__gt=0)

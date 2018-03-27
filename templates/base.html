@@ -32,7 +32,7 @@
         <div class="row">
             <div class="col-md-4 col-sm-5 col-xs-8">
                 <div class="logo">
-                    <h1><a href="index.html"><b>Black</b> &amp; White</a></h1>
+                    <h1><a href="{% url 'blog:index' %}"><b>Black</b> &amp; White</a></h1>
                 </div>
             </div><!-- col-md-4 -->
             <div class="col-md-8 col-sm-7 col-xs-4">
@@ -71,11 +71,16 @@
 <div class="content-body">
     <div class="container">
         <div class="row">
+            <!-- 文章列表页面 -->
             <main class="col-md-8">
                 {% block main %}
                 {% endblock main %}
             </main>
+
+
+            <!-- 侧面栏列表 -->
             <aside class="col-md-4">
+                <!-- 最新文章 -->
                 <div class="widget widget-recent-posts">
                     <h3 class="widget-title">最新文章</h3>
                     {% get_recent_posts as recent_post_list %}
@@ -89,7 +94,7 @@
                         {% endfor %}
                     </ul>
                 </div>
-
+                <!-- 归档 -->
                 <div class="widget widget-archives">
                     <h3 class="widget-title">归档</h3>
                     {% archives as date_list %}
@@ -103,7 +108,7 @@
                     {% endfor %}
                     </ul>
                 </div>
-
+                <!-- 分类 -->
                 <div class="widget widget-category">
                     <h3 class="widget-title">分类</h3>
                     {% get_categories as category_list %}
@@ -118,7 +123,6 @@
                     {% endfor %}
                     </ul>
                 </div>
-
                 <!-- 标签云 -->
                 <div class="widget widget-tag-cloud">
                     <h3 class="widget-title">标签云</h3>

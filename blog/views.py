@@ -9,6 +9,8 @@ import markdown
 
 from django.views.generic import ListView
 from django.db.models import Q
+from comments.forms import CommentForm
+
 
 class IndexView(ListView):
 	model = Post
@@ -94,44 +96,53 @@ def index(request):
 	post_list = Post.objects.all()
 	return render(request, 'blog/index.html', context={'post_list':post})
 
-
 # def index(request):
-
 # 	post_list = Post.objects.all().order_by('-created_time')
-
-# 	template = loader.get_template('blog/index.html')
 # 	context = {
 # 	'post_list': post_list
 # 	}
-
-# 	# return HttpResponse(template.render(context, request))
 # 	return render(request, 'blog/index.html', context)
 
 
-
+''' # detail 视图函数, 根据我们从 URL 捕获的文章 id。
+get_object_or_404 方法:  当传入的 pk 对应的 Post 在数据库存在时，就返回对应的 post，
+如果不存在，就给用户返回一个 404 错误。
+'''
 def detail(request, pk):
 	post = get_object_or_404(Post, pk=pk)
 
 	# 阅读量 +1
 	post.increase_views()
 
+	# 将 Markdown 格式的文本渲染成 HTML 文本。
+	# 参数 extensions, 是对 Markdown 语法的拓展(extra、codehilite: 语法高亮拓展、toc: 则允许我们自动生成目录)
 	post.body = markdown.markdown(post.body,
 		extensions =[
 		'markdown.extensions.extra',
 		'markdown.extensions.codehilite',
 		'markdown.extensions.toc',
 		])
-	return render(request, 'blog/detail.html', context={'post':post})
+
+	form = CommentForm()
+	comment_list = post.comment_set.all()
+
+	context = {	'post': post,
+				'form': form,
+				'comment_list': comment_list,
+				}
+	return render(request, 'blog/detail.html', context=context)
 
 
+
+# 归档视图
 def archives(request, year, month):
 	post_list = Post.objects.filter(
 		created_time__year = year,
 		created_time__month = month
 		).order_by('-created_time')
-
 	return render(request, 'blog/index.html', context={'post_list':post_list})
 
+# 分类视图
 # def category(request, pk):
 # 	cate = get_object_or_404(Category, pk=pk)
 # 	post_list = Post.objects.filter(category=cate).order_by('-created_time')
@@ -151,6 +162,7 @@ class TagView(ListView):
 		tag = get_object_or_404(Tag, pk=self.kwargs.get('pk'))
 
 		return super(TagView, self).get_queryset().filter(tags=tag)
+
 
 def search(request):
 	q = request.GET.get('q')
