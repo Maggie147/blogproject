@@ -48,6 +48,9 @@
    python manage.py makemigrations
    python manage.py migrate
    ```
+   ```
+   python manage.py help
+   ```
    交互式命令行测试数据库函数：
     ```
    python manage.py shell
