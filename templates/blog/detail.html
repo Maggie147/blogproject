@@ -31,7 +31,7 @@
       {% csrf_token %}
       <div class="row">
         <div class="col-md-4">
-          <label for="{{ form.name.id_for_label }}">名字：</label>
+          <label for="{{ form.name.id_for_label }}">昵称：</label>
           {{ form.name }}
           {{ form.name.errors }}
         </div>
@@ -67,4 +67,5 @@
       暂无评论
       {% endfor %}
     </ul>
+
 {% endblock main %}
