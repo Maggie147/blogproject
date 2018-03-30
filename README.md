@@ -1,4 +1,4 @@
-# blogproject
+# blogproject(http://txxue.pythonanywhere.com/)
 基于最新版 Django 2.0 和 Python 3.5.4
 
 ## 资源列表
