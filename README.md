@@ -21,14 +21,16 @@
 
    ```
    virtualenv blogproject_env
-
+  
+   ```
+   激活虚拟环境
+   ```
    # windows
    blogproject_env\Scripts\activate
 
    # linux
    source blogproject_env/bin/activate
    ```
-
    关于如何使用虚拟环境，参阅：[搭建开发环境](http://zmrenwu.com/post/3/) 的 Virtualenv 部分。如果不想使用虚拟环境，可以跳过这一步。
 
 3. 安装项目依赖
@@ -38,18 +40,25 @@
    ```
    pip install -r requirements.txt
    ```
+4. 安装django2.0, 创建项目
 
-4. 迁移数据库
+   ```
+   >>> pip install Django==2.0
+   
+   >>> python manage.py help 
+    
+   >>> python django-admin.py startproject blogproject
+   >>> python manage.py startapp blog
+   ```
+
+5. 迁移数据库
  
    使用了 Python 内置的 SQLite3 数据库。SQLite3 是一个十分轻巧的数据库，它仅有一个文件（数据库文件 db.sqlite3）。
    在上一步所在的位置运行如下命令迁移数据库：
 
    ```
-   python manage.py makemigrations
-   python manage.py migrate
-   ```
-   ```
-   python manage.py help
+   >>> python manage.py makemigrations
+   >>> python manage.py migrate
    ```
    交互式命令行测试数据库函数：
     ```
@@ -82,7 +91,7 @@
    >>> p.delete()
    ```
    
-5. 创建后台管理员账户
+6. 创建后台管理员账户
 
    在上一步所在的位置运行如下命令创建后台管理员账户
 
@@ -97,7 +106,7 @@
 
    具体请参阅 [在 Django Admin 后台发布文章](http://zmrenwu.com/post/9/)
 
-6. 运行开发服务器
+7. 运行开发服务器
 
    在上一步所在的位置运行如下命令开启开发服务器：
 
