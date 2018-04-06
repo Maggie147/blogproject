@@ -44,10 +44,12 @@
    ```
    pip install Django==2.0
    
-   python manage.py help 
-    
-   python django-admin.py startproject blogproject
+   django-admin.py startproject blogproject
+   
+   # python manage.py help 查看帮助信息
+   
    python manage.py startapp blog
+    
    ```
 
 5. 迁移数据库
