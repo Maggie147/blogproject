@@ -21,7 +21,6 @@
 
    ```
    virtualenv blogproject_env
-  
    ```
    激活虚拟环境
    ```
@@ -43,12 +42,12 @@
 4. 安装django2.0, 创建项目
 
    ```
-   >>> pip install Django==2.0
+   pip install Django==2.0
    
-   >>> python manage.py help 
+   python manage.py help 
     
-   >>> python django-admin.py startproject blogproject
-   >>> python manage.py startapp blog
+   python django-admin.py startproject blogproject
+   python manage.py startapp blog
    ```
 
 5. 迁移数据库
@@ -57,8 +56,8 @@
    在上一步所在的位置运行如下命令迁移数据库：
 
    ```
-   >>> python manage.py makemigrations
-   >>> python manage.py migrate
+   python manage.py makemigrations
+   python manage.py migrate
    ```
    交互式命令行测试数据库函数：
     ```
